@@ -9,11 +9,18 @@ import java.util.List;
 
 public final class Worldbar extends JavaPlugin {
 
+    private WorldbarConfiguration worldbarConfig;
+
     @Override
     public void onEnable() {
-        this.getCommand("worldbar").setExecutor(new WorldbarCommands());
+        this.worldbarConfig = WorldbarConfiguration.getInstance();
+        this.worldbarConfig.init(this);
+        this.worldbarConfig.saveConfig();
+
+        this.getCommand("worldbar").setExecutor(new WorldbarCommands(this));
 
         WorldbarManager worldbarManager = WorldbarManager.getInstance();
+        worldbarManager.setConfigurationManager(this.worldbarConfig);
         worldbarManager.init();
 
     }

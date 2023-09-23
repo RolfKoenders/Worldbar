@@ -15,18 +15,31 @@ public class WorldbarManager {
     private static WorldbarManager INSTANCE;
     private final Map<String, BossBar> bossBarMap = new HashMap<>();
 
+    private WorldbarConfiguration worldbarConfiguration;
+
     private WorldbarManager() {}
 
     public void init() {
         List<World> worlds = Bukkit.getWorlds();
         for (World world : worlds) {
             System.out.println("Creating bossBar for world: " + world.getName());
-            String bossBarTitle ="You are in: " + world.getName();
+            String bossBarTitle = this.getWorldTitle(world);
             BossBar bossBar = Bukkit.createBossBar(bossBarTitle, BarColor.PINK, BarStyle.SOLID);
             bossBar.setProgress(1);
             bossBar.setVisible(true);
             this.bossBarMap.put(world.getName(), bossBar);
         }
+    }
+
+    public void reloadWorldbarConfiguration() {
+        for (World world : Bukkit.getWorlds()) {
+            BossBar bossBar = this.bossBarMap.get(world.getName());
+            bossBar.setTitle(this.getWorldTitle(world));
+        }
+    }
+
+    public void setConfigurationManager(WorldbarConfiguration worldbarConfiguration) {
+        this.worldbarConfiguration = worldbarConfiguration;
     }
 
     public void toggleBarForPlayer(Player player) {
@@ -38,6 +51,20 @@ public class WorldbarManager {
         } else {
             addPlayerToBar(player);
         }
+    }
+
+    private String getWorldTitle(World world) {
+        String configPath = String.format("worlds.%s.title", world.getName());
+        String configWorldTitle = this.worldbarConfiguration.getConfig().getString(configPath);
+
+        String worldTitle;
+        if (configWorldTitle == null) {
+            worldTitle = world.getName();
+        } else {
+            worldTitle = configWorldTitle;
+        }
+
+        return "You are in: " + worldTitle;
     }
 
     private void addPlayerToBar(Player player) {
