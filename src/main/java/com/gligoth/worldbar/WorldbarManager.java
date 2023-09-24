@@ -28,7 +28,8 @@ public class WorldbarManager {
         for (World world : worlds) {
             getLogger().info("[Worldbar] Initializing worldbar for world: " + world.getName());
             String bossBarTitle = this.buildWorldbarTitle(world);
-            BossBar bossBar = Bukkit.createBossBar(bossBarTitle, BarColor.PINK, BarStyle.SOLID);
+            BarColor barColor = this.getBarColor(world);
+            BossBar bossBar = Bukkit.createBossBar(bossBarTitle, barColor, BarStyle.SOLID);
             bossBar.setProgress(1);
             bossBar.setVisible(true);
             this.bossBarMap.put(world.getName(), bossBar);
@@ -71,6 +72,20 @@ public class WorldbarManager {
         toBar.addPlayer(player);
     }
 
+    public boolean doesPlayerHaveWorldbar(Player player) {
+        return this.playersWithWorldbar.contains(player);
+    }
+
+    private BarColor getBarColor(World world) {
+        String barColorConfigPath = String.format("worlds.%s.color", world.getName());
+        String configBarColor = this.worldbarConfiguration.getConfig().getString(barColorConfigPath);
+
+        if (configBarColor == null) {
+            return BarColor.PINK;
+        } else {
+            return BarColor.valueOf(configBarColor);
+        }
+    }
 
     private String buildWorldbarTitle(World world) {
         String worldTitleConfigPath = String.format("worlds.%s.title", world.getName());
@@ -93,10 +108,6 @@ public class WorldbarManager {
         }
 
         return String.format("%s %s", titlePrefix, worldTitle);
-    }
-
-    public boolean doesPlayerHaveWorldbar(Player player) {
-        return this.playersWithWorldbar.contains(player);
     }
 
     private void addPlayerToBar(Player player) {
