@@ -19,3 +19,6 @@ worlds:
 |-----------------------------------|--------------------------------------------------------------------------------------------------|--------------------|
 | `/worldbar` or `/worldbar toggle` | Show or hide the worldbar                                                                          | `worldbar.toggle` |
 | `/worldbar reload`                | Allow to reload the plugin config with `/worldbar reload` (Preferably only give this to staff/admin | `worldbar.reload`  |
+
+## Preview
+![Preview of the worldbar plugin](https://i.imgur.com/iyv3k2i.gif)
