@@ -27,7 +27,7 @@ public class WorldbarManager {
         List<World> worlds = Bukkit.getWorlds();
         for (World world : worlds) {
             getLogger().info("[Worldbar] Initializing worldbar for world: " + world.getName());
-            String bossBarTitle = this.getWorldTitle(world);
+            String bossBarTitle = this.buildWorldbarTitle(world);
             BossBar bossBar = Bukkit.createBossBar(bossBarTitle, BarColor.PINK, BarStyle.SOLID);
             bossBar.setProgress(1);
             bossBar.setVisible(true);
@@ -38,7 +38,7 @@ public class WorldbarManager {
     public void reloadWorldbarConfiguration() {
         for (World world : Bukkit.getWorlds()) {
             BossBar bossBar = this.bossBarMap.get(world.getName());
-            bossBar.setTitle(this.getWorldTitle(world));
+            bossBar.setTitle(this.buildWorldbarTitle(world));
         }
     }
 
@@ -72,9 +72,9 @@ public class WorldbarManager {
     }
 
 
-    private String getWorldTitle(World world) {
-        String configPath = String.format("worlds.%s.title", world.getName());
-        String configWorldTitle = this.worldbarConfiguration.getConfig().getString(configPath);
+    private String buildWorldbarTitle(World world) {
+        String worldTitleConfigPath = String.format("worlds.%s.title", world.getName());
+        String configWorldTitle = this.worldbarConfiguration.getConfig().getString(worldTitleConfigPath);
 
         String worldTitle;
         if (configWorldTitle == null) {
@@ -83,7 +83,16 @@ public class WorldbarManager {
             worldTitle = configWorldTitle;
         }
 
-        return "You are in: " + worldTitle;
+        String configTitlePrefix = this.worldbarConfiguration.getConfig().getString("titlePrefix");
+        String titlePrefix;
+
+        if (configTitlePrefix == null) {
+            titlePrefix = "You are in: ";
+        } else {
+            titlePrefix = configTitlePrefix;
+        }
+
+        return String.format("%s %s", titlePrefix, worldTitle);
     }
 
     public boolean doesPlayerHaveWorldbar(Player player) {

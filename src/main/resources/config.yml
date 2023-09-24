@@ -1,3 +1,4 @@
+titlePrefix: "You are in:"
 worlds:
   world_name:
     title: "Default Title"
