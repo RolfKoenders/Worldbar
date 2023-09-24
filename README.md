@@ -22,3 +22,4 @@ worlds:
 
 ## Preview
 ![Preview of the worldbar plugin](https://i.imgur.com/iyv3k2i.gif)
+_in case gif doesn't load: https://i.imgur.com/iyv3k2i.gif_
