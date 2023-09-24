@@ -2,7 +2,17 @@
 A simple plugin that can show a bossBar with the name of the world the player is in.
 
 ## Configurations
-tba
+```yaml
+# The prefix for the bar, in this example the bar for world "world_name" would say: "You are in: My world"
+titlePrefix: "You are in:"
+worlds:
+  # "world_name" is the name of the world you want to configure
+  world_name:
+    # You can override the title for a specific world
+    title: "My world"
+    # The default bar color is PINK, but you can configure it per world.
+    color: "PINK"
+```
 
 ## Commands
 | Command                           | Description                                                                                      | Permission         |
