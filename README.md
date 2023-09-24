@@ -19,6 +19,7 @@ worlds:
 |-----------------------------------|--------------------------------------------------------------------------------------------------|--------------------|
 | `/worldbar` or `/worldbar toggle` | Show or hide the worldbar                                                                          | `worldbar.toggle` |
 | `/worldbar reload`                | Allow to reload the plugin config with `/worldbar reload` (Preferably only give this to staff/admin | `worldbar.reload`  |
+| `/worldname` | See in which world you are with a simple command, it just returns the world name you are in (from the configuration if you have set a different name/title for the world) | `worldbar.worldname` |
 
 ## Preview
 ![Preview of the worldbar plugin](https://i.imgur.com/iyv3k2i.gif)
