@@ -88,7 +88,7 @@ public class WorldbarManager {
         }
     }
 
-    private String buildWorldbarTitle(World world) {
+    public String getWorldbarTitle(World world) {
         String worldTitleConfigPath = String.format("worlds.%s.title", world.getName());
         String configWorldTitle = this.worldbarConfiguration.getConfig().getString(worldTitleConfigPath);
 
@@ -99,6 +99,10 @@ public class WorldbarManager {
             worldTitle = configWorldTitle;
         }
 
+        return worldTitle;
+    }
+
+    private String buildWorldbarTitle(World world) {
         String configTitlePrefix = this.worldbarConfiguration.getConfig().getString("titlePrefix");
         String titlePrefix;
 
@@ -108,7 +112,7 @@ public class WorldbarManager {
             titlePrefix = configTitlePrefix;
         }
 
-        return String.format("%s %s", titlePrefix, worldTitle);
+        return String.format("%s %s", titlePrefix, this.getWorldbarTitle(world));
     }
 
     private void addPlayerToBar(Player player) {
