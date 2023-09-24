@@ -1,5 +1,8 @@
 # Worldbar
-A simple plugin that can show a bossBar with the name of the world the player is in.
+A quickly thrown together plugin that can show a bossBar with the name of the world the player is in.
+
+## Motivation
+The motivation for this plugin was that we have multiple worlds on our server (SMP) and some of those worlds reset daily. Some players arent always aware in which world they are, hence the creation of this plugin.
 
 ## Configurations
 ```yaml
