@@ -40,6 +40,7 @@ public class WorldbarManager {
         for (World world : Bukkit.getWorlds()) {
             BossBar bossBar = this.bossBarMap.get(world.getName());
             bossBar.setTitle(this.buildWorldbarTitle(world));
+            bossBar.setColor(this.getBarColor(world));
         }
     }
 
