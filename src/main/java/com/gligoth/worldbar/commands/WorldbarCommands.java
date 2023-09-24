@@ -67,10 +67,14 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
         if (command.getName().equalsIgnoreCase("worldbar")) {
 
             List<String> autoCompletes = new ArrayList<>();
-            autoCompletes.add("toggle");
 
-            // TODO: Only add this when permission is there
-            autoCompletes.add("reload");
+            if (sender.hasPermission(Permissions.ALLOW_TOGGLE)) {
+                autoCompletes.add("toggle");
+            }
+
+            if (sender.hasPermission(Permissions.RELOAD_CONFIG)) {
+                autoCompletes.add("reload");
+            }
 
             if (args.length == 1) {
                 return autoCompletes;
