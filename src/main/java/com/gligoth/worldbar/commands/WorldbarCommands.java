@@ -1,5 +1,6 @@
 package com.gligoth.worldbar.commands;
 
+import com.gligoth.worldbar.Permissions;
 import com.gligoth.worldbar.WorldbarConfiguration;
 import com.gligoth.worldbar.WorldbarManager;
 import org.bukkit.ChatColor;
@@ -34,25 +35,30 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if (args == null || args.length == 0) {
-            this.worldbarManager.toggleBarForPlayer(player);
+            if (sender.hasPermission(Permissions.ALLOW_TOGGLE)) {
+                this.worldbarManager.toggleBarForPlayer(player);
+            }
             return true;
         }
 
         switch (args[0].toLowerCase()) {
             case "toggle":
-                this.worldbarManager.toggleBarForPlayer(player);
+                if (sender.hasPermission(Permissions.ALLOW_TOGGLE)) {
+                    this.worldbarManager.toggleBarForPlayer(player);
+                }
                 return true;
 
             case "reload":
-                // TODO: Check for permissions
-                getLogger().info("[Worldbar] Reloading config");
-                this.worldbarConfiguration.reloadConfig();
-                this.worldbarManager.reloadWorldbarConfiguration();
+                if (sender.hasPermission(Permissions.RELOAD_CONFIG)) {
+                    getLogger().info("[Worldbar] Reloading config");
+                    this.worldbarConfiguration.reloadConfig();
+                    this.worldbarManager.reloadWorldbarConfiguration();
+                }
                 return true;
 
             default:
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cInvalid Command"));
-                return true;
+                return false;
         }
     }
 
