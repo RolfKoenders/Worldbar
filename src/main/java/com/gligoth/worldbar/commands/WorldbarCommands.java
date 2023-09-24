@@ -33,7 +33,7 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
         Player player = (Player) sender;
 
         if (args == null || args.length == 0) {
-            player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&cNot enough args"));
+            this.worldbarManager.toggleBarForPlayer(player);
             return true;
         }
 
@@ -44,6 +44,7 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
                 return true;
 
             case "reload":
+                // TODO: Check for permissions
                 System.out.println("Reloading config");
                 this.worldbarConfiguration.reloadConfig();
                 this.worldbarManager.reloadWorldbarConfiguration();
@@ -61,6 +62,8 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
 
             List<String> autoCompletes = new ArrayList<>();
             autoCompletes.add("toggle");
+
+            // TODO: Only add this when permission is there
             autoCompletes.add("reload");
 
             if (args.length == 1) {

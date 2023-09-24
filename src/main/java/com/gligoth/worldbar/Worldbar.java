@@ -1,6 +1,7 @@
 package com.gligoth.worldbar;
 
 import com.gligoth.worldbar.commands.WorldbarCommands;
+import com.gligoth.worldbar.listeners.PlayerChangedWorldListener;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,6 +24,7 @@ public final class Worldbar extends JavaPlugin {
         worldbarManager.setConfigurationManager(this.worldbarConfig);
         worldbarManager.init();
 
+        getServer().getPluginManager().registerEvents(new PlayerChangedWorldListener(), this);
     }
 
     @Override
