@@ -2,7 +2,6 @@ package com.gligoth.worldbar.commands;
 
 import com.gligoth.worldbar.WorldbarConfiguration;
 import com.gligoth.worldbar.WorldbarManager;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.bukkit.Bukkit.getLogger;
 
 public class WorldbarCommands implements CommandExecutor, TabCompleter {
 
@@ -39,13 +40,12 @@ public class WorldbarCommands implements CommandExecutor, TabCompleter {
 
         switch (args[0].toLowerCase()) {
             case "toggle":
-                System.out.println("Adding " + player.getName() + " to the bossBar of world: " + player.getWorld());
                 this.worldbarManager.toggleBarForPlayer(player);
                 return true;
 
             case "reload":
                 // TODO: Check for permissions
-                System.out.println("Reloading config");
+                getLogger().info("[Worldbar] Reloading config");
                 this.worldbarConfiguration.reloadConfig();
                 this.worldbarManager.reloadWorldbarConfiguration();
                 return true;

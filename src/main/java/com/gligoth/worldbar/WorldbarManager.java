@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public class WorldbarManager {
     private static WorldbarManager INSTANCE;
     private final Map<String, BossBar> bossBarMap = new HashMap<>();
@@ -24,7 +26,7 @@ public class WorldbarManager {
     public void init() {
         List<World> worlds = Bukkit.getWorlds();
         for (World world : worlds) {
-            System.out.println("Creating bossBar for world: " + world.getName());
+            getLogger().info("[Worldbar] Initializing worldbar for world: " + world.getName());
             String bossBarTitle = this.getWorldTitle(world);
             BossBar bossBar = Bukkit.createBossBar(bossBarTitle, BarColor.PINK, BarStyle.SOLID);
             bossBar.setProgress(1);
